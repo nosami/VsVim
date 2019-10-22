@@ -374,7 +374,7 @@ namespace Vim.Mac
         private void OpenTab(string fileName)
         {
             Project project = null;
-            IdeApp.Workbench.OpenDocument(fileName, project).Wait(System.Threading.CancellationToken.None);
+            IdeApp.Workbench.OpenDocument(fileName, project);
         }
 
         public void GoToTab(int index)
