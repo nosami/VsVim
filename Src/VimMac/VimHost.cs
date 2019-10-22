@@ -429,7 +429,21 @@ namespace Vim.Mac
 
         public bool LoadFileIntoExistingWindow(string filePath, ITextView textView)
         {
-            throw new NotImplementedException();
+            // filePath can be a wildcard representing multiple files
+            // e.g. :e ~/src/**/*.cs
+            var files = ShellWildcardExpansion.ExpandWildcard(filePath, _vim.VimData.CurrentDirectory);
+            try
+            {
+                foreach (var file in files)
+                {
+                    OpenTab(file);
+                }
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public FSharpOption<ITextView> LoadFileIntoNewWindow(string filePath, FSharpOption<int> line, FSharpOption<int> column)
