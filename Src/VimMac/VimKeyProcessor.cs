@@ -137,13 +137,20 @@ namespace Vim.UI.Cocoa
 
             VimTrace.TraceInfo("VimKeyProcessor::KeyDown Handled = {0}", handled);
 
-            var message = Mac.StatusBar.GetStatus(VimBuffer).Text;
-            IdeApp.Workbench.StatusBar.ShowMessage(message);
             //TODO: Hack so that ByPassKeyProcessorProvider can prevent
             // the editor from receiving the typed character
             // For VSMac 8.4, the editor should be able to stop propogation to
             // the editor from this event
             TextView.Properties["Handled"] = handled;
+
+            var status = Mac.StatusBar.GetStatus(VimBuffer);
+            var text = status.Text;
+            if(status.CaretPosition != 0)
+            {
+                // Add a fake 'caret'
+                text = text.Insert(status.CaretPosition, "|");
+            }
+            IdeApp.Workbench.StatusBar.ShowMessage(text);
             CaretUtil.SetCaret(VimBuffer);
         }
     }
