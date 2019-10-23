@@ -126,13 +126,11 @@ namespace Vim.UI.Cocoa
                 {
                     handled = false;
                 }
-                var newMode = VimBuffer.Mode.ModeKind;
-                VimTrace.TraceDebug(newMode.ToString());
+
                 if (oldMode != ModeKind.Insert)
                 {
                     handled = true;
                 }
-                //e.Handled = handled;
             }
 
             VimTrace.TraceInfo("VimKeyProcessor::KeyDown Handled = {0}", handled);
@@ -145,7 +143,7 @@ namespace Vim.UI.Cocoa
 
             var status = Mac.StatusBar.GetStatus(VimBuffer);
             var text = status.Text;
-            if(status.CaretPosition != 0)
+            if(VimBuffer.ModeKind == ModeKind.Command)
             {
                 // Add a fake 'caret'
                 text = text.Insert(status.CaretPosition, "|");
