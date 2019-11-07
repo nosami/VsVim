@@ -7,6 +7,17 @@ pr:
 
 # Standard CI loop (build and test). This will run against VS2017 and VS2019
 jobs:
+- job: macOS
+  pool:
+    vmImage: 'macOS-10.14'
+  steps:
+  - script: echo hello from macOS Mojave
+  - task: PowerShell@2
+    displayName: Build 
+    inputs:
+      filePath: Scripts/Build.ps1
+      arguments: -ci -config DebugMac -build
+
 - job: VsVim_Build_Test
   pool: 
     vmImage: 'vs2017-win2016'
