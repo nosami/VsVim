@@ -11,12 +11,7 @@ jobs:
   pool:
     vmImage: 'macOS-10.14'
   steps:
-  - script: echo hello from macOS Mojave
-  - task: PowerShell@2
-    displayName: Build 
-    inputs:
-      filePath: Scripts/Build.ps1
-      arguments: -ci -config DebugMac -build
+  - script: msbuild /p:Configuration=ReleaseMac
 
 - job: VsVim_Build_Test
   pool: 
