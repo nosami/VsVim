@@ -304,7 +304,7 @@ function Build-Solution(){
 
 Push-Location $rootDir
 try {
-  . "Scripts\Common-Utils.ps1"
+  . "Scripts/Common-Utils.ps1"
 
   if ($help -or ($properties -ne $null)) {
     Print-Usage
